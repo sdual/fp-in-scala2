@@ -8,9 +8,16 @@ case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 
 object Tree {
   // Exercise 3.27
-//  def depth[A](tree: Tree[A]): Int = {
-//
-//  }
+  def depth[A](tree: Tree[A]): Int = {
+    def loop(tr: Tree[A], d: Int): Int = {
+      tr match {
+        case Branch(l, r) => loop(l, d + 1) max loop(r, d + 1)
+        case Leaf(v) => d + 1
+      }
+    }
+
+    loop(tree, 0)
+  }
 
   // Exercise 3.26
   def maximum(tree: Tree[Int]): Int = {
