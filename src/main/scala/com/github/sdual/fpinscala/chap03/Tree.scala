@@ -7,6 +7,11 @@ case class Leaf[A](value: A) extends Tree[A]
 case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 
 object Tree {
+  // Exercise 3.27
+//  def depth[A](tree: Tree[A]): Int = {
+//
+//  }
+
   // Exercise 3.26
   def maximum(tree: Tree[Int]): Int = {
 
@@ -23,24 +28,14 @@ object Tree {
   // Exercise 3.25
   def size[A](tree: Tree[A]): Int = {
 
-    def loop(left1: Tree[A], right1: Tree[A], nodeNum: Int): Int = {
-      val leftNum = left1 match {
-        case Branch(l, r) => loop(r, l, nodeNum + 1)
-        case Leaf(_)      => nodeNum + 1
+    def loop(tr: Tree[A]): Int = {
+      tr match {
+        case Branch(l, r) => loop(l) + loop(r)
+        case Leaf(v) => 1
       }
-
-      val rightNum = right1 match {
-        case Branch(l, r) => loop(r, l, nodeNum + 1)
-        case Leaf(_)      => nodeNum + 1
-      }
-
-      leftNum + rightNum
     }
 
-    tree match {
-      case Branch(left, right) => loop(left, right, 1)
-      case _ => 1
-    }
+    loop(tree)
   }
 
 }
