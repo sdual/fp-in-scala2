@@ -1,6 +1,6 @@
 package com.github.sdual.fpinscala.chap03
 
-trait Tree[+A]
+sealed trait Tree[+A]
 
 case class Leaf[A](value: A) extends Tree[A]
 
@@ -8,24 +8,17 @@ case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 
 object Tree {
   // Exercise 3.26
-  //def maximun(tree: Tree[Int]): Int = {
+  def maximum(tree: Tree[Int]): Int = {
 
-//    def loop(left: Tree[Int], right: Tree[Int], tmpMax: Int): Int = {
-//      val leftMax = left match {
-//        case Branch(l, r) => loop(r, l, tmpMax)
-//        case Leaf(v)      => math.max(v, tmpMax)
-//      }
-//
-//      val rightMax = right match {
-//        case Branch(l, r) => loop(r, l, tmpMax)
-//        case Leaf(v)      => math.max(v, tmpMax)
-//      }
-//
-//      math.max(leftMax, rightMax)
-//    }
-//
-//
-//  }
+    def loop(tr: Tree[Int]): Int = {
+      tr match {
+        case Branch(l, r) => loop(l) max loop(r)
+        case Leaf(v)      => v
+      }
+    }
+
+    loop(tree)
+  }
 
   // Exercise 3.25
   def size[A](tree: Tree[A]): Int = {
