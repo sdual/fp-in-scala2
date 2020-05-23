@@ -47,6 +47,7 @@ object Option {
 
   def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = {
 
+    @tailrec
     def loop(a1: List[A], acc: List[B]): Option[List[B]] = {
       a match {
         case Nil => Some(acc)
