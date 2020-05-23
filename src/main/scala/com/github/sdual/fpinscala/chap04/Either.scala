@@ -1,7 +1,6 @@
 package com.github.sdual.fpinscala.chap04
 
 sealed trait Either[+E, +A] {
-
   // Exercise 4.6
   def map[B](f: A => B): Either[E, B] = {
     this match {
@@ -47,5 +46,21 @@ object Either {
     else
       Right(xs.sum / xs.length)
   }
+
+  // Exercise 4.7
+  def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] = {
+
+    def loop(es: List[Either[E, A]]): Either[E, List[A]] = {
+      es match {
+        case h :: t => h match {
+          case Right(right) => loop(t).map(e => h :: e)
+          case Left(_) => loop(t)
+        }
+      }
+    }
+
+    loop(es)
+  }
+
 
 }
