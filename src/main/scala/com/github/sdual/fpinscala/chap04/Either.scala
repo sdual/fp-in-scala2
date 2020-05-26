@@ -48,19 +48,25 @@ object Either {
   }
 
   // Exercise 4.7
-  def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] = {
+//  def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] = {
+//
+//    def loop(es: List[Either[E, A]]): Either[E, List[A]] = {
+//      es match {
+//        case h :: t => h match {
+//          case Right(right) => loop(t).map(e => h :: e)
+//          case Left(_) => loop(t)
+//        }
+////        case Nil => Left()
+//      }
+//    }
+//
+//    loop(es)
+//  }
 
-    def loop(es: List[Either[E, A]]): Either[E, List[A]] = {
-      es match {
-        case h :: t => h match {
-          case Right(right) => loop(t).map(e => h :: e)
-          case Left(_) => loop(t)
-        }
-      }
-    }
-
-    loop(es)
-  }
-
+//  def traverse[E, A, B](as: List[A])(f: A => Either[E, B]): Either[E, List[B]] = {
+//    as match {
+//      case h
+//    }
+//  }
 
 }
