@@ -10,15 +10,16 @@ trait Stream[+A] {
   }
 
   def toList: List[A] = {
+
     @tailrec
     def loop(stream: Stream[A], tmp: List[A]): List[A] = {
-      this match {
+      stream match {
         case Cons(h, t) => loop(t(), h() :: tmp)
-        case Empty      => Nil
+        case Empty      => tmp
       }
-    }.reverse
+    }
 
-    loop(this, Nil)
+    loop(this, Nil).reverse
   }
 
 }
